@@ -43,11 +43,18 @@ class Api_Controller extends Controller {
 		{
 			header("Content-type: text/xml");    
 		}
+	        else if ($api_service->get_response_type() == 'pirate')
+		{
+		        echo 'yarrr!';    
+		}
 		else
 		{
 			header("Content-type: application/json; charset=utf-8");
 		}
-
-		print $api_service->get_response();
+		
+		if($api_service->get_response_type() != 'pirate')
+		{
+		        print $api_service->get_response();
+		}
 	}
 }
