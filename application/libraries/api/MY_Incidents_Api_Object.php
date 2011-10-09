@@ -412,7 +412,7 @@ class Incidents_Api_Object extends Api_Object_Core {
 		foreach ($items as $item)
 		{
 			// Build xml file
-			$xml->startElement('incident');
+			$xml->startElement('Richard_incident');
 
 			$xml->writeElement('id',$item->incident_id);
 			$xml->writeElement('title',$item->incident_title);
@@ -545,7 +545,7 @@ class Incidents_Api_Object extends Api_Object_Core {
 			if ($this->response_type == 'json')
 			{
 				$json_reports[] = array(
-					"incident" => array(
+					"Richard_incident" => array(
 						"incidentid" => $item->incident_id,
 						"incidenttitle" => $item->incident_title,
 						"incidentdescription" => $item->incident_description,
