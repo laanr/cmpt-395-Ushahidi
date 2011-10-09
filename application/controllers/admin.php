@@ -110,6 +110,7 @@ class Admin_Controller extends Template_Controller
 
 		// Retrieve Default Settings
 		$this->template->site_name = Kohana::config('settings.site_name');
+		$this->template->site_tagline = Kohana::config('settings.site_tagline');
 		$this->template->mapstraction = Kohana::config('settings.mapstraction');
 		$this->template->api_url = Kohana::config('settings.api_url');
 

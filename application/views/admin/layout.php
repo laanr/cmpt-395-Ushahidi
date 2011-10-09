@@ -18,8 +18,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=7" />
-	<title><?php echo $site_name ?></title>
-	<?php
+        <title><?php echo $site_name ?></title>
+    	<?php
 	echo html::stylesheet(url::file_loc('css').'media/css/admin/all', '', true);
 	echo html::stylesheet(url::file_loc('css').'media/css/jquery-ui-themeroller', '', true);
 	echo "<!--[if lt IE 7]>".
@@ -182,7 +182,7 @@
 				Event::run('ushahidi_action.admin_header_top_left');
 				?>
 				<ul>
-					<li class="none-separator"> <?php echo Kohana::lang('ui_admin.welcome');echo $admin_name; ?>!</li>
+				 	<li class="none-separator"> <?php echo Kohana::lang('ui_admin.welcome');echo $admin_name; ?>!</li>
 					<li class="none-separator"><a href="<?php echo url::site() ?>" title="View the home page">
 						<?php echo Kohana::lang('ui_admin.view_site');?></a>					
 					<li class="none-separator"><a href="<?php echo url::site()."admin/profile/" ?>"><?php echo Kohana::lang('ui_admin.my_profile');?></a></li>
@@ -206,12 +206,13 @@
 				
 			</div>
 			<!-- title -->
-			<h1><?php echo $site_name ?></h1>
+			<h1><a href="<?php echo url::site();?>"><?php echo $site_name; ?></a></h1>
+                        <span><?php echo $site_tagline; ?></span>
 			<!-- nav-holder -->
 			<div class="nav-holder">
 				<!-- main-nav -->
 				<ul class="main-nav">
-					<?php foreach($main_tabs as $page => $tab_name){ ?>
+				       <?php foreach($main_tabs as $page => $tab_name){ ?>
 						<li><a href="<?php echo url::site(); ?>admin/<?php echo $page; ?>" <?php if($this_page==$page) echo 'class="active"' ;?>><?php echo $tab_name; ?></a></li>
 					<?php } ?>
 				</ul>
