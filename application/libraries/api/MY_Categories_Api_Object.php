@@ -159,12 +159,12 @@ class Categories_Api_Object extends Api_Object_Core {
             //needs different treatment depending on the output
             if ($this->response_type == 'json')
             {
-                $json_categories[] = array("category" => $item);
+                $json_categories[] = array("Richard_category" => $item);
             }
             else
             {
                 $json_categories['category'.$i] = array(
-                        "category" => $item) ;
+                        "Richard_category" => $item) ;
                 $this->replar[] = 'category'.$i;
             }
 

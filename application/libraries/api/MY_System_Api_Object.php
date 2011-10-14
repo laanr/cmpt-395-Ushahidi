@@ -56,11 +56,11 @@ class System_Api_Object extends Api_Object_Core {
 
         if ($this->response_type == 'json')
         {
-            $json_version[] = array("version" => $version);
+            $json_version[] = array("Richard_version" => $version);
         }
         else
         {
-            $json_version['version'] = array("version" => $version);
+            $json_version['version'] = array("Richard_version" => $version);
             $this->replar[] = 'version';
         }
 
