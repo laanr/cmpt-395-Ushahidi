@@ -33,7 +33,9 @@
 		var default_json_url = "<?php echo $json_url ?>";
 		// Current json_url, if map is switched dynamically between json and json_cluster
 		var json_url = default_json_url;
-		
+                // Maintains a list of currently displayed categories -- Added by R.Laan 
+                var multiCat = new Array();
+
 		/* 
 		 - Part of #2168 fix
 		 - Added by E.Kala <emmanuel(at)ushahidi.com>
@@ -69,7 +71,7 @@
 		function addMarkers(catID,startDate,endDate, currZoom, currCenter,
 			mediaType, thisLayerID, thisLayerType, thisLayerUrl, thisLayerColor)
 		{
-			activeZoom = currZoom;
+		  	activeZoom = currZoom;
 			
 			if(activeZoom == ''){
 				return $.timeline({categoryId: catID,
@@ -96,7 +98,7 @@
 					return true;
 				}
 			}, timeout);
-		}
+		  }
 
 		/**
 		 * Display loader as Map Loads
@@ -689,23 +691,21 @@
 			
 			// display the map projection
 			document.getElementById('mapProjection').innerHTML = map.projection;
-				
+		       
 			gMap = map;
 			
 			// Category Switch Action
 			$("a[id^='cat_']").click(function()
 			{
-				var catID = this.id.substring(4);
+			        var catID = this.id.substring(4);
 				var catSet = 'cat_' + this.id.substring(4);
 				$("a[id^='cat_']").removeClass("active"); // Remove All active
-				$("[id^='child_']").hide(); // Hide All Children DIV
-				$("#cat_" + catID).addClass("active"); // Add Highlight
-				$("#child_" + catID).show(); // Show children DIV
-				$(this).parents("div").show();
+												    
+                                $(this).parents("div").show();
 				
 				currentCat = catID;
 				$("#currentCat").val(catID);
-
+				
 				// setUrl not supported with Cluster Strategy
 				//markers.setUrl("<?php echo url::site(); ?>" json_url + '/?c=' + catID);
 				
@@ -720,7 +720,41 @@
 				// Get Current Center
 				currCenter = map.getCenter();
 				
-				gCategoryId = catID;
+				//catSelected controls if element is removed
+				var catSelected = false;
+				
+				//reset list being displayed and hide child lists when all categories is selected
+				if(catID==0)
+				{
+				    multiCat=new Array();
+				    $("[id^='child_']").hide(); // Hide All Children DIV
+				}
+				
+				//remove already selected categories from list
+				if(multiCat.length >0)
+				{
+				    for (index in multiCat)
+				    {
+				        if(multiCat[index] == catID)
+				        {
+				             catSelected = true;
+				    	     multiCat.splice(index,1);
+				        }
+				    }
+			        }
+				
+				// adds selected category to start of list to be displayed if it was not just removed
+				if(catSelected==false && catID > 0)
+				    multiCat.splice(0,0,catID); ////multiCat.push(catID);
+								
+				// keep selected categories highlighted until de-selected, opens 
+			        for(index in multiCat)
+			        {
+				    $("#cat_" + multiCat[index]).addClass("active"); // Add Highlight
+			            $("#child_" + multiCat[index]).show(); // Show children DIV
+			        }
+				
+				gCategoryId = multiCat.toString();
 				
 				var startTime = new Date($("#startDate").val() * 1000);
 				var endTime = new Date($("#endDate").val() * 1000);
